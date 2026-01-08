@@ -1,74 +1,190 @@
-/* ===== GLOBAL BACKGROUND ===== */
+/* =========================================================
+   🌟 GLOBAL
+   ========================================================= */
 body {
     background: linear-gradient(180deg, #eef2ff, #fafbff);
+    font-family: "Inter", "Segoe UI", Roboto, sans-serif;
 }
 
-/* ===== HEADER CARD ===== */
+/* Remove Streamlit default footer & menu */
+#MainMenu, footer, header {visibility: hidden !important;}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* =========================================================
+   🌈 HEADER CARD
+   ========================================================= */
 .header-card {
-    background: white;
-    border-radius: 18px;
-    padding: 25px;
+    background: #ffffffdd;
+    backdrop-filter: blur(6px);
+    border-radius: 20px;
+    padding: 26px 32px;
     display: flex;
-    gap: 18px;
+    gap: 20px;
     align-items: center;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
-    margin-bottom: 20px;
+
+    box-shadow:
+        4px 4px 18px rgba(0,0,0,0.08),
+        -4px -4px 18px rgba(255,255,255,0.65);
 }
 
 .header-icon {
-    font-size: 42px;
+    font-size: 48px;
+    background: linear-gradient(45deg, #6c63ff, #9d4edd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .header-title {
     margin: 0;
-    font-size: 32px;
+    font-size: 34px;
+    font-weight: 800;
     color: #2b2b52;
 }
 
 .header-sub {
     margin: 0;
-    font-size: 16px;
+    font-size: 15px;
     color: #555;
-    opacity: 0.8;
+    opacity: 0.85;
 }
 
-/* ===== DIVIDER ===== */
+/* =========================================================
+   🧵 DIVIDER
+   ========================================================= */
 .divider {
     height: 1px;
-    background: rgba(0,0,0,0.1);
-    margin: 25px 0;
+    background: rgba(0,0,0,0.08);
+    margin: 30px 0;
 }
 
-/* ===== SIDEBAR TITLE ===== */
+/* =========================================================
+   📚 SIDEBAR
+   ========================================================= */
 .sidebar-title {
     font-size: 22px;
-    font-weight: 600;
+    font-weight: 700;
     padding: 10px 0;
-    background: -webkit-linear-gradient(45deg, #6c63ff, #9d4edd);
+    background: linear-gradient(45deg, #6c63ff, #9d4edd);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.footer-card {
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
-    margin-top: 30px;
+.css-1d391kg { /* Sidebar background patch */
+    background-color: #f0f2ff !important;
 }
 
-.footer-section {
-    margin-bottom: 10px;
+/* =========================================================
+   📦 FORM ELEMENTS
+   ========================================================= */
+textarea, input {
+    background: #ffffffcc !important;
+    border-radius: 14px !important;
+    border: 1px solid #d5daf7 !important;
+    padding: 12px !important;
+    font-size: 15px !important;
+}
+
+textarea:focus, input:focus {
+    border: 1px solid #6c63ff !important;
+    box-shadow: 0 0 0 1px #6c63ff !important;
+}
+
+/* =========================================================
+   🔘 BUTTONS
+   ========================================================= */
+.stButton>button {
+    background: linear-gradient(45deg, #6c63ff, #9d4edd) !important;
+    color: #fff !important;
+    border-radius: 12px !important;
+    padding: 10px 26px !important;
+    border: none !important;
+    font-size: 16px !important;
+    font-weight: 600;
+    transition: 0.25s ease;
+}
+
+.stButton>button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.35);
+}
+
+.stDownloadButton>button {
+    background: linear-gradient(45deg, #1d5f89, #3a85b9) !important;
+}
+
+.stDownloadButton>button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(29, 95, 137, 0.3);
+}
+
+/* =========================================================
+   📊 DATAFRAME, CHART
+   ========================================================= */
+.stDataFrame {
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    box-shadow:
+        4px 4px 18px rgba(0,0,0,0.08),
+        -4px -4px 18px rgba(255,255,255,0.7);
+}
+
+.element-container svg {
+    border-radius: 14px !important;
+    background: white !important;
+    padding: 8px;
+}
+
+/* =========================================================
+   🦶 FOOTER CARD
+   ========================================================= */
+.footer-card {
+    background: white;
+    padding: 22px;
+    border-radius: 18px;
+    box-shadow:
+        4px 4px 18px rgba(0,0,0,0.08),
+        -4px -4px 18px rgba(255,255,255,0.7);
+    margin-top: 35px;
 }
 
 .footer-section h4 {
     color: #6c63ff;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    font-weight: 700;
 }
 
 .footer-copy {
     text-align: center;
-    font-size: 14px;
+    font-size: 13px;
     opacity: 0.7;
-    margin-top: 10px;
+    margin-top: 12px;
+}
+
+/* =========================================================
+   ⭐ CARD COMPONENT (for reuse anywhere)
+   ========================================================= */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow:
+        4px 4px 18px rgba(0,0,0,0.08),
+        -4px -4px 18px rgba(255,255,255,0.7);
+    margin: 20px 0;
+}
+
+/* =========================================================
+   🔥 ANIMATIONS
+   ========================================================= */
+.fade-in {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
