@@ -1,3 +1,8 @@
+# ================================================================
+# 🌟 ANALYSIS PAGE – SENTIMENT ANALYZER PRO
+# Modern UI • Dual Language • Batch Processing
+# ================================================================
+
 import streamlit as st
 import pandas as pd
 import re
@@ -8,138 +13,119 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 
 
-# ==================================================
-# 🎨 PREMIUM GLOBAL UI CSS
-# ==================================================
+# ================================================================
+# 🎨 LOAD CUSTOM CSS – PREMIUM UI
+# ================================================================
 def load_custom_css():
     st.markdown("""
         <style>
 
-        /* Remove menu and footer */
-        #MainMenu {visibility: hidden;}
-        footer {visibility: hidden;}
+        /* Hide Streamlit default menu/footer */
+        #MainMenu, footer {visibility: hidden;}
 
-        /* Global font + background */
-        body, textarea, input {
-            font-family: "Segoe UI", Roboto, sans-serif !important;
-        }
-        .main {
-            background-color: #f5f6f4 !important;
-        }
+        body {font-family: "Segoe UI", Roboto, sans-serif;}
 
-        /* Title */
-        h3 {
-            font-weight: 700 !important;
-            color: #2b6f3e !important;
+        /* Smooth fade */
+        .fade-in {
+            animation: fadein 0.8s ease-in-out;
+        }
+        @keyframes fadein {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Textarea */
-        textarea {
-            border-radius: 12px !important;
-            border: 1px solid #cbd5c0 !important;
-            padding: 12px !important;
-            font-size: 16px !important;
-        }
-        textarea:focus {
-            border: 1px solid #2b6f3e !important;
-            box-shadow: 0 0 0 1px #2b6f3e !important;
+        /* Section Title */
+        .section-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1f4c2f;
+            padding-bottom: 6px;
         }
 
-        /* Buttons */
-        .stButton>button {
-            background: #2b6f3e !important;
-            color: #fff !important;
-            border-radius: 10px !important;
-            padding: 10px 22px !important;
-            font-size: 16px !important;
-            border: none !important;
-            transition: 0.25s !important;
-        }
-        .stButton>button:hover {
-            background: #245c33 !important;
-            transform: translateY(-2px);
+        /* Result Card */
+        .result-card {
+            border-radius: 14px;
+            padding: 18px 22px;
+            margin-top: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
-        .stDownloadButton>button {
-            background: #1d5f89 !important;
-            color: #fff !important;
-            border-radius: 10px !important;
-            padding: 10px 22px !important;
-            font-size: 16px !important;
-            border: none !important;
-            transition: 0.25s !important;
+        .positive {
+            border-left: 8px solid #2ecc71;
+            background: #eafaf1;
         }
-        .stDownloadButton>button:hover {
-            background: #174a6a !important;
-            transform: translateY(-2px);
+        .negative {
+            border-left: 8px solid #e74c3c;
+            background: #fdecea;
         }
-
-        /* File uploader */
-        .uploadedFile {
-            border-radius: 10px !important;
-            background: #e8f0e3 !important;
+        .neutral {
+            border-left: 8px solid #7f8c8d;
+            background: #f2f4f5;
         }
 
-        /* Dataframe box */
-        .stDataFrame {
+        .result-label {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .result-confidence {
+            font-size: 16px;
+            opacity: 0.8;
+        }
+
+        /* Upload Box */
+        .upload-card {
             border-radius: 12px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-        }
-
-        /* Chart */
-        .element-container svg {
-            border-radius: 12px !important;
+            padding: 15px;
+            background: #f5f7f6;
         }
 
         </style>
     """, unsafe_allow_html=True)
 
 
-# ==================================================
-# 🔍 Improved Language Detection
-# ==================================================
+# ================================================================
+# 🔍 Improved Vietnamese Language Detection
+# ================================================================
 VI_CHARS = r"àáạảãâầấậẩẫăằắặẳẵđêềếệểễôồốộổỗơờớợởỡưừứựửữíìịỉĩúùụủũýỳỵỷỹ"
 
 def is_vietnamese(text: str) -> bool:
     if re.search(f"[{VI_CHARS}]", text.lower()):
         return True
-    english_hint = r"\b(the|this|that|is|are|was|were|good|bad)\b"
-    return not bool(re.search(english_hint, text.lower()))
+
+    # English pattern detection
+    english_hint = r"\b(the|this|that|is|are|was|were|good|bad|quality|product)\b"
+    if re.search(english_hint, text.lower()):
+        return False
+
+    return True
 
 
-# ==================================================
-# 🇻🇳 Vietnamese Sentiment (Improved Rule-Based)
-# ==================================================
-VI_POS = [
-    "tốt", "tuyệt", "xuất sắc", "hài lòng",
-    "ưng ý", "đẹp", "ngon", "hoàn hảo",
-    "ổn", "ok", "rất thích"
-]
+# ================================================================
+# 🇻🇳 Vietnamese Sentiment (Improved Lexicon-Based)
+# ================================================================
+VI_POS = ["tốt", "tuyệt", "xuất sắc", "hài lòng", "ưng ý", "đẹp", "ngon", "hoàn hảo"]
+VI_NEG = ["tệ", "xấu", "kém", "thất vọng", "dở", "lỗi", "tồi", "quá tệ", "kinh khủng"]
 
-VI_NEG = [
-    "tệ", "xấu", "kém", "thất vọng", "dở",
-    "lỗi", "tồi", "không tốt", "không hài lòng",
-    "quá tệ", "kinh khủng", "hỏng", "rất tệ"
-]
 
 def vietnamese_sentiment(text: str):
     score = 0
     t = text.lower()
+
     for w in VI_POS:
         if w in t: score += 1
     for w in VI_NEG:
         if w in t: score -= 1
 
     if score > 0:
-        return "positive", min(0.65 + score * 0.08, 0.97)
+        return "positive", min(0.70 + score * 0.07, 0.98)
     if score < 0:
-        return "negative", min(0.65 + abs(score) * 0.08, 0.97)
+        return "negative", min(0.70 + abs(score) * 0.07, 0.98)
     return "neutral", 0.55
 
 
-# ==================================================
-# 🇺🇸 English Sentiment Model
-# ==================================================
+# ================================================================
+# 🇺🇸 English ML Model
+# ================================================================
 @st.cache_resource
 def load_english_model():
     model_path = "models/en_sentiment_model.joblib"
@@ -148,14 +134,12 @@ def load_english_model():
     if os.path.exists(model_path) and os.path.exists(vec_path):
         return joblib.load(model_path), joblib.load(vec_path)
 
+    # Fallback tiny dataset
     texts = [
-        "This product is very good", "Excellent quality and fast delivery",
-        "Amazing experience, I love it", "Absolutely perfect",
-        "Bad product, very disappointed", "Terrible quality",
-        "It is okay, not bad", "Average quality", "Nothing special",
+        "This product is very good", "Excellent quality", "Amazing experience",
+        "Bad product", "Terrible quality", "Very poor", "It is okay"
     ]
-    labels = ["positive", "positive", "positive", "positive",
-              "negative", "negative", "neutral", "neutral", "neutral"]
+    labels = ["positive", "positive", "positive", "negative", "negative", "negative", "neutral"]
 
     vectorizer = TfidfVectorizer(stop_words="english")
     X = vectorizer.fit_transform(texts)
@@ -170,99 +154,112 @@ def load_english_model():
     return model, vectorizer
 
 
-# ==================================================
-# 🎯 MAIN PAGE
-# ==================================================
+# ================================================================
+# 🎯 MAIN PAGE VIEW
+# ================================================================
 def show():
     load_custom_css()
 
-    st.markdown(
-        "<h3>Analysis – Sentiment Analysis (Vietnamese & English)</h3>",
-        unsafe_allow_html=True
-    )
-
-    st.write("Analyze product reviews using machine learning + rule-based hybrid sentiment analysis.")
+    st.markdown("<div class='section-title fade-in'>📈 Sentiment Analysis</div>", unsafe_allow_html=True)
+    st.write("Analyze customer reviews in **Vietnamese or English** using AI + rule-based hybrid model.")
 
     model_en, vec_en = load_english_model()
 
-    # ---------------- Input box ----------------
-    st.subheader("📝 Input Product Review")
+    # ============================================================
+    # 📝 SINGLE TEXT ANALYSIS
+    # ============================================================
+    st.subheader("📝 Analyze a Single Review")
     review = st.text_area(
-        "Enter a product review (Vietnamese or English):",
-        height=120,
-        placeholder="Ví dụ: Sản phẩm tốt / This product is excellent"
+        "",
+        height=110,
+        placeholder="Nhập đánh giá sản phẩm... | Example: This product is excellent"
     )
 
-    if st.button("▶️ Analyze Sentiment"):
+    if st.button("▶️ Analyze", use_container_width=True):
         if not review.strip():
-            st.warning("Please enter a review.")
+            st.warning("⚠️ Please enter some text.")
         else:
-            if is_vietnamese(review):
-                sentiment, confidence = vietnamese_sentiment(review)
-                lang = "Vietnamese"
-            else:
-                X = vec_en.transform([review])
-                sentiment = model_en.predict(X)[0]
-                confidence = model_en.predict_proba(X).max()
-                lang = "English"
+            with st.spinner("🔍 Analyzing..."):
+                if is_vietnamese(review):
+                    sentiment, confidence = vietnamese_sentiment(review)
+                else:
+                    X = vec_en.transform([review])
+                    sentiment = model_en.predict(X)[0]
+                    confidence = model_en.predict_proba(X).max()
 
-            st.success(f"Sentiment: **{sentiment.upper()}**")
-            st.info(f"Confidence: **{confidence:.2f}**")
-            st.caption(f"Language detected: {lang}")
+            # UI result card
+            st.markdown(
+                f"""
+                <div class="result-card fade-in {sentiment}">
+                    <div class="result-label">Sentiment: {sentiment.upper()}</div>
+                    <div class="result-confidence">Confidence: {confidence:.2f}</div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
 
-    # ---------------- Batch file processing ----------------
-    st.write("---")
-    st.subheader("📂 Upload Reviews Dataset (CSV / TXT / DOCX)")
-    st.caption("CSV: column `review` | TXT: each line | DOCX: each paragraph")
+    # ============================================================
+    # 📂 BATCH ANALYSIS
+    # ============================================================
+    st.markdown("<br><div class='section-title'>📂 Batch File Processing</div>", unsafe_allow_html=True)
+    st.caption("Upload TXT / CSV / DOCX file for batch sentiment analysis")
 
-    file = st.file_uploader("Upload file", type=["csv", "txt", "docx"])
+    file = st.file_uploader("Upload your dataset:", type=["txt", "csv", "docx"])
 
     if file:
-        reviews = []
+        container = st.container()
+        with container:
+            st.markdown("<div class='upload-card fade-in'>", unsafe_allow_html=True)
 
-        if file.name.endswith(".csv"):
-            df = pd.read_csv(file)
-            if "review" not in df.columns:
-                st.error("CSV must contain a column named 'review'.")
-                return
-            reviews = df["review"].astype(str).tolist()
+            reviews = []
 
-        elif file.name.endswith(".txt"):
-            text = file.read().decode("utf-8")
-            reviews = [l.strip() for l in text.splitlines() if l.strip()]
+            if file.name.endswith(".csv"):
+                df = pd.read_csv(file)
+                if "review" not in df.columns:
+                    st.error("CSV must include a column named 'review'")
+                    return
+                reviews = df["review"].astype(str).tolist()
 
-        elif file.name.endswith(".docx"):
-            doc = Document(file)
-            reviews = [p.text.strip() for p in doc.paragraphs if p.text.strip()]
+            elif file.name.endswith(".txt"):
+                reviews = file.read().decode("utf-8").splitlines()
 
-        sentiments, confidences = [], []
+            elif file.name.endswith(".docx"):
+                doc = Document(file)
+                reviews = [p.text.strip() for p in doc.paragraphs if p.text.strip()]
 
-        for r in reviews:
-            if is_vietnamese(r):
-                s, c = vietnamese_sentiment(r)
-            else:
-                X = vec_en.transform([r])
-                s = model_en.predict(X)[0]
-                c = model_en.predict_proba(X).max()
+            sentiments = []
+            confidences = []
 
-            sentiments.append(s)
-            confidences.append(round(c, 3))
+            with st.spinner("Processing reviews..."):
+                for r in reviews:
+                    if is_vietnamese(r):
+                        s, c = vietnamese_sentiment(r)
+                    else:
+                        X = vec_en.transform([r])
+                        s = model_en.predict(X)[0]
+                        c = model_en.predict_proba(X).max()
 
-        result = pd.DataFrame({
-            "review": reviews,
-            "sentiment": sentiments,
-            "confidence": confidences
-        })
+                    sentiments.append(s)
+                    confidences.append(round(c, 3))
 
-        st.success(f"Processed {len(result)} reviews.")
-        st.dataframe(result, use_container_width=True)
+            result = pd.DataFrame({
+                "review": reviews,
+                "sentiment": sentiments,
+                "confidence": confidences
+            })
 
-        st.subheader("📊 Sentiment Distribution")
-        st.bar_chart(result["sentiment"].value_counts())
+            st.success("🎉 File processed successfully!")
+            st.dataframe(result, use_container_width=True)
 
-        st.download_button(
-            "⬇️ Download result (CSV)",
-            result.to_csv(index=False),
-            "sentiment_results.csv",
-            "text/csv"
-        )
+            st.subheader("📊 Sentiment Distribution")
+            st.bar_chart(result["sentiment"].value_counts())
+
+            st.download_button(
+                "⬇️ Download CSV",
+                result.to_csv(index=False),
+                "sentiment_results.csv",
+                "text/csv",
+                use_container_width=True
+            )
+
+            st.markdown("</div>", unsafe_allow_html=True)
