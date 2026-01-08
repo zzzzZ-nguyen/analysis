@@ -11,15 +11,20 @@ st.set_page_config(
 )
 
 # ==========================
-# 🎨 LOAD CSS (ĐÚNG VỊ TRÍ)
+# 🎨 LOAD CSS (ĐÚNG – TEST TRẠNG THÁI)
 # ==========================
 def load_css():
     css_path = Path("theme.css")
     if css_path.exists():
-        css = css_path.read_text()
-        st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
+        st.markdown(
+            f"<style>{css_path.read_text()}</style>",
+            unsafe_allow_html=True
+        )
+        st.success("✅ CSS loaded successfully")
+    else:
+        st.error("❌ theme.css NOT FOUND — UI sẽ không hiển thị style!")
+        st.write("📂 Current working directory:", Path.cwd())
 
-# Load CSS *SAU* khi page config đã xong
 load_css()
 
 # ==========================
@@ -41,13 +46,11 @@ st.markdown(
 st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
 
 # ==========================
-# 📌 SIDEBAR – GRADIENT + ICONS
+# 📌 SIDEBAR – GRADIENT
 # ==========================
 st.sidebar.markdown(
     """
-    <div class="sidebar-title">
-        📊 Navigation
-    </div>
+    <div class="sidebar-title">📊 Navigation</div>
     """,
     unsafe_allow_html=True
 )
@@ -73,7 +76,7 @@ elif page == "⚙️ Training Info":
     show()
 
 # ==========================
-# 👣 FOOTER – MATERIAL UI
+# 👣 FOOTER – MATERIAL DESIGN
 # ==========================
 st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
 
