@@ -1,36 +1,72 @@
 import streamlit as st
 
-def box(html):
-    st.markdown(
-        f"""
-        <div style="
-            background:#fff7cc;
-            padding:20px;
-            border-radius:10px;
-            border:1px solid #e6d784;
-            font-size:16px;
-            line-height:1.6;">
-            {html}
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+# ============================
+#       CUSTOM CSS
+# ============================
+CSS = """
+<style>
+.page-title {
+    font-size: 36px !important;
+    font-weight: 800;
+    color: #2b6f3e;
+    background: linear-gradient(90deg, #2b6f3e, #3fa55b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 25px;
+}
 
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 14px;
+    margin-top: 18px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    border-left: 6px solid #ffcc00;
+    transition: 0.2s;
+}
+.card:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    transform: translateY(-3px);
+}
+
+.card h4 {
+    color: #d12c2c;
+    margin-top: 0px;
+    font-size: 22px;
+}
+
+ul li {
+    margin-bottom: 6px;
+}
+</style>
+"""
+
+st.markdown(CSS, unsafe_allow_html=True)
+
+# ============================
+#        CARD FUNCTION
+# ============================
+def card(html):
+    st.markdown(f"<div class='card'>{html}</div>", unsafe_allow_html=True)
+
+# ============================
+#            PAGE
+# ============================
 def show():
-    st.markdown(
-        "<h3 style='color:#2b6f3e;'>Topic 5 – Sentiment Analysis for Product Reviews</h3>",
-        unsafe_allow_html=True
-    )
+    # Title
+    st.markdown("<h2 class='page-title'>Topic 5 – Sentiment Analysis for Product Reviews</h2>", unsafe_allow_html=True)
 
-    box("""
-    <h4 style="color:#b30000;">1. Problem Overview</h4>
+    # CARD 1
+    card("""
+    <h4>📌 1. Problem Overview</h4>
     The project develops an intelligent sentiment analysis system that automatically
     classifies product reviews into <b>Positive, Neutral, or Negative</b>
     to support decision-making for e-commerce businesses.
     """)
 
-    box("""
-    <h4 style="color:#b30000;">2. Objectives</h4>
+    # CARD 2
+    card("""
+    <h4>🎯 2. Objectives</h4>
     <ul>
         <li>Analyze customer opinions from product reviews.</li>
         <li>Support Vietnamese and English text.</li>
@@ -39,8 +75,9 @@ def show():
     </ul>
     """)
 
-    box("""
-    <h4 style="color:#b30000;">3. Technologies</h4>
+    # CARD 3
+    card("""
+    <h4>🛠️ 3. Technologies</h4>
     <ul>
         <li>Python, Streamlit</li>
         <li>Scikit-learn, TF-IDF</li>
@@ -49,4 +86,3 @@ def show():
     """)
 
     st.write("---")
-   
