@@ -11,14 +11,19 @@ st.set_page_config(
 )
 
 # ==========================
-# 🎨 GLOBAL CSS (theme.css)
+# 🎨 LOAD CSS (ĐÚNG VỊ TRÍ)
 # ==========================
-css_path = Path("theme.css")
-if css_path.exists():
-    st.markdown(f"<style>{css_path.read_text()}</style>", unsafe_allow_html=True)
+def load_css():
+    css_path = Path("theme.css")
+    if css_path.exists():
+        css = css_path.read_text()
+        st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
+
+# Load CSS *SAU* khi page config đã xong
+load_css()
 
 # ==========================
-# 🎨 HEADER (Material Card)
+# 🎨 HEADER – MATERIAL DESIGN
 # ==========================
 st.markdown(
     """
@@ -36,26 +41,24 @@ st.markdown(
 st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
 
 # ==========================
-# 📌 SIDEBAR – Gradient + Icon
+# 📌 SIDEBAR – GRADIENT + ICONS
 # ==========================
 st.sidebar.markdown(
     """
-    <div class="sidebar-title">📊 Navigation</div>
+    <div class="sidebar-title">
+        📊 Navigation
+    </div>
     """,
     unsafe_allow_html=True
 )
 
 page = st.sidebar.radio(
     "",
-    [
-        "🏠 Home",
-        "📈 Sentiment Analysis",
-        "⚙️ Training Info"
-    ]
+    ["🏠 Home", "📈 Sentiment Analysis", "⚙️ Training Info"]
 )
 
 # ==========================
-# 📦 ROUTING
+# 🚀 ROUTING
 # ==========================
 if page == "🏠 Home":
     from pages.Home import show
@@ -70,27 +73,29 @@ elif page == "⚙️ Training Info":
     show()
 
 # ==========================
-# 👣 FOOTER – Premium Material UI
+# 👣 FOOTER – MATERIAL UI
 # ==========================
 st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
 
-st.markdown("""
-<div class="footer-students">
-    <h4>🎓 Students</h4>
-    <p>Bùi Đức Nguyên – 235053154 – nguyenbd23@uef.edu.vn</p>
-    <p>Huỳnh Ngọc Minh Quân – 235052863 – quanhnm@uef.edu.vn</p>
-</div>
+st.markdown(
+    """
+    <div class="footer-students">
+        <h4>🎓 Students</h4>
+        <p>Bùi Đức Nguyên – 235053154 – nguyenbd23@uef.edu.vn</p>
+        <p>Huỳnh Ngọc Minh Quân – 235052863 – quanhnm@uef.edu.vn</p>
+    </div>
 
-<div class="footer-instructor">
-    <h4>👨‍🏫 Instructor</h4>
-    <p><b>Bùi Tiến Đức</b></p>
-    <a href="https://orcid.org/0000-0001-5174-3558" target="_blank">
-        ORCID: 0000-0001-5174-3558
-    </a>
-</div>
+    <div class="footer-instructor">
+        <h4>👨‍🏫 Instructor</h4>
+        <p><b>Bùi Tiến Đức</b></p>
+        <a href="https://orcid.org/0000-0001-5174-3558" target="_blank">
+            ORCID: 0000-0001-5174-3558
+        </a>
+    </div>
 
-<div class="footer-copy">
-    © 2025 – Sentiment Analysis for E-Commerce
-</div>
-""", unsafe_allow_html=True)
-
+    <div class="footer-copy">
+        © 2025 – Sentiment Analysis for E-Commerce
+    </div>
+    """,
+    unsafe_allow_html=True
+)
