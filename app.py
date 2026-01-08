@@ -20,7 +20,7 @@ def load_css():
             f"<style>{css_path.read_text()}</style>",
             unsafe_allow_html=True
         )
-        st.success("✅ CSS loaded successfully")
+        st.success("")
     else:
         st.error("❌ theme.css NOT FOUND — UI sẽ không hiển thị style!")
         st.write("📂 Current working directory:", Path.cwd())
