@@ -1,78 +1,78 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 
-# ============================
-#       CUSTOM CSS
-# ============================
+# ==================================================
+# 🔮 GLOBAL CUSTOM CSS – MATCH MAIN THEME
+# ==================================================
 CSS = """
 <style>
-/* GLOBAL */
 body {
-    background: #f5f7fa;
-    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(180deg, #eef2ff, #fafbff);
+    font-family: "Inter", "Segoe UI", sans-serif;
 }
-
-/* Title Decoration */
 .page-title {
-    font-size: 32px !important;
-    font-weight: 700;
-    color: #2b6f3e;
-    border-left: 6px solid #2b6f3e;
-    padding-left: 12px;
+    font-size: 34px;
+    font-weight: 800;
+    background: linear-gradient(45deg, #6c63ff, #9d4edd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-left: 6px;
     margin-bottom: 20px;
 }
-
-/* CARD STYLE */
 .card {
-    background: white;
-    padding: 22px;
-    border-radius: 12px;
-    margin-top: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-    transition: 0.2s ease;
+    background: #ffffffea;
+    padding: 24px;
+    border-radius: 18px;
+    margin-top: 18px;
+    box-shadow:
+        4px 4px 16px rgba(0,0,0,0.07),
+        -4px -4px 16px rgba(255,255,255,0.6);
+    transition: 0.25s ease;
 }
 .card:hover {
-    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    transform: translateY(-3px);
+    box-shadow:
+        6px 6px 20px rgba(0,0,0,0.10),
+        -6px -6px 20px rgba(255,255,255,0.7);
 }
-
-/* BUTTON */
 .stButton>button {
-    background: linear-gradient(135deg, #33cc77, #22884f);
-    color: white;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 10px;
-    font-size: 17px;
+    background: linear-gradient(45deg, #6c63ff, #9d4edd) !important;
+    color: white !important;
+    padding: 0.65rem 1.3rem;
+    border-radius: 12px;
+    font-size: 16px;
     font-weight: 600;
-    transition: 0.2s ease;
+    border: none;
+    transition: 0.25s ease;
 }
 .stButton>button:hover {
-    background: linear-gradient(135deg, #2dbd6e, #1f7a45);
-    transform: scale(1.03);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(108,99,255,0.45);
 }
-
-/* TEXTAREA */
+.stDownloadButton>button {
+    background: linear-gradient(45deg, #1d5f89, #3a85b9) !important;
+}
 textarea {
-    border-radius: 10px !important;
+    border-radius: 12px !important;
+    border: 1px solid #d6dafc !important;
 }
-
-/* File uploader */
-.css-1p0rl0g {
-    border-radius: 10px !important;
+textarea:focus {
+    border: 1px solid #6c63ff !important;
+    box-shadow: 0 0 0 1px #6c63ff !important;
 }
 </style>
 """
 
 st.markdown(CSS, unsafe_allow_html=True)
 
-
-# ============================
-#      LOAD DEMO MODEL
-# ============================
+# ==================================================
+# 🧠 LOAD DEMO MODEL
+# ==================================================
 @st.cache_resource
 def load_demo_model():
     texts = [
@@ -81,9 +81,12 @@ def load_demo_model():
         "Bad product, very disappointed",
         "Terrible experience",
         "It is okay, not bad",
-        "Average quality"
+        "Average quality",
+        "Amazing, I really love it!",
+        "Poor build and awful material",
     ]
-    labels = ["positive", "positive", "negative", "negative", "neutral", "neutral"]
+
+    labels = ["positive", "positive", "negative", "negative", "neutral", "neutral", "positive", "negative"]
 
     vectorizer = TfidfVectorizer()
     X = vectorizer.fit_transform(texts)
@@ -94,58 +97,97 @@ def load_demo_model():
     return model, vectorizer
 
 
-# ============================
-#        MAIN PAGE
-# ============================
+# ==================================================
+# 🎯 MAIN PAGE
+# ==================================================
 def show():
-    st.markdown("<div class='page-title'>Analysis – Sentiment Analysis</div>", unsafe_allow_html=True)
-    st.write("Analyze product reviews and classify sentiment using AI sentiment prediction.")
+    st.markdown("<div class='page-title'>🇺🇸 English Sentiment Analysis – AI Engine</div>", unsafe_allow_html=True)
+    st.write("Analyze English product reviews using a machine learning sentiment classifier.")
 
     model, vectorizer = load_demo_model()
 
-    # ============================
-    #   TEXT INPUT CARD
-    # ============================
-    with st.container():
-        st.markdown("<div class='card'>", unsafe_allow_html=True)
+    # ==================================================
+    # ✏️ INPUT REVIEW CARD
+    # ==================================================
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
+    st.subheader("📝 Input Review")
 
-        st.subheader("📝 Input Product Review")
-        review = st.text_area(
-            "Enter a product review (Vietnamese or English):",
-            height=120
-        )
+    review = st.text_area(
+        "Enter an English product review:",
+        height=120,
+        placeholder="Example: The product quality is excellent..."
+    )
 
-        if st.button("▶️ Analyze Sentiment"):
+    if st.button("▶️ Analyze Sentiment"):
+        if not review.strip():
+            st.warning("Please enter a review.")
+        else:
             X = vectorizer.transform([review])
             pred = model.predict(X)[0]
             proba = model.predict_proba(X).max()
 
-            st.success(f"Predicted Sentiment: **{pred.upper()}**")
-            st.info(f"Confidence: **{proba:.2f}**")
+            st.success(f"**Sentiment: {pred.upper()}**")
+            st.info(f"Confidence Score: **{proba:.2f}**")
 
-        st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
-    # ============================
-    #   CSV UPLOAD CARD
-    # ============================
+    # ==================================================
+    # 📂 UPLOAD CSV ANALYSIS
+    # ==================================================
     st.markdown("<div class='card'>", unsafe_allow_html=True)
+    st.subheader("📂 Batch Analysis (CSV File)")
 
-    st.subheader("📂 Upload Reviews Dataset (CSV)")
-    file = st.file_uploader("CSV with column: review", type=["csv"])
+    st.caption("CSV must contain a column named **review**")
+
+    file = st.file_uploader("Upload CSV", type=["csv"])
 
     if file:
-        df = pd.read_csv(file)
+        try:
+            df = pd.read_csv(file)
 
-        X = vectorizer.transform(df["review"])
-        df["sentiment"] = model.predict(X)
+            if "review" not in df.columns:
+                st.error("❌ CSV file must contain a 'review' column.")
+                st.markdown("</div>", unsafe_allow_html=True)
+                return
 
-        st.dataframe(df.head())
+            X = vectorizer.transform(df["review"].astype(str))
+            df["sentiment"] = model.predict(X)
 
-        st.subheader("📊 Sentiment Distribution")
-        fig, ax = plt.subplots()
-        df["sentiment"].value_counts().plot(
-            kind="bar", ax=ax, color=["green", "gray", "red"]
-        )
-        st.pyplot(fig)
+            st.success(f"Processed {len(df)} reviews.")
+
+            st.dataframe(df, use_container_width=True)
+
+            # ==================================================
+            # 📊 BEAUTIFUL DONUT CHART
+            # ==================================================
+            st.subheader("📊 Sentiment Distribution")
+
+            counts = df["sentiment"].value_counts()
+            labels = counts.index
+            sizes = counts.values
+
+            fig, ax = plt.subplots(figsize=(4, 4))
+            wedges, _ = ax.pie(
+                sizes,
+                wedgeprops=dict(width=0.4),
+                startangle=160,
+                autopct="%1.1f%%"
+            )
+            ax.set(aspect="equal")
+            ax.legend(wedges, labels, title="Sentiments", loc="center left")
+            st.pyplot(fig)
+
+            # ==================================================
+            # ⬇️ DOWNLOAD PROCESSED FILE
+            # ==================================================
+            st.download_button(
+                "⬇️ Download Results (CSV)",
+                df.to_csv(index=False),
+                "sentiment_results_ENG.csv",
+                "text/csv"
+            )
+
+        except Exception as e:
+            st.error(f"⚠️ Error reading file: {e}")
 
     st.markdown("</div>", unsafe_allow_html=True)
