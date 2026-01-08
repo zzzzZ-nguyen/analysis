@@ -1,56 +1,50 @@
-/* ===== Footer Students Box ===== */
+/* GENERAL APP BACKGROUND */
+.stApp {
+    background: linear-gradient(145deg, #f0f4f8, #ffffff);
+}
+
+/* CENTER CONTAINER */
+.block-container {
+    background: transparent !important;
+}
+
+/* ===========================
+   FOOTER STUDENTS CARD
+   =========================== */
 .footer-students {
-    background: linear-gradient(135deg, #fff3cd, #ffefb1);
-    border: 1px solid #ffdd75;
-    padding: 18px 22px;
+    background: linear-gradient(135deg, #fff3cd, #ffec9e) !important;
+    border: 1px solid #ffdf7f !important;
+    padding: 20px;
     border-radius: 14px;
-    margin: 16px auto;
     max-width: 850px;
-    box-shadow: 0 4px 8px rgba(255, 204, 0, 0.15);
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(255, 200, 0, 0.25);
 }
 
-/* ===== Footer Instructor Box ===== */
+/* ===========================
+   FOOTER INSTRUCTOR CARD
+   =========================== */
 .footer-instructor {
-    background: linear-gradient(135deg, #e6ffed, #c8ffd9);
-    border: 1px solid #80e9a4;
-    padding: 18px 22px;
+    background: linear-gradient(135deg, #e6ffee, #c6ffe2) !important;
+    border: 1px solid #7ee2a4 !important;
+    padding: 20px;
     border-radius: 14px;
-    margin: 16px auto;
     max-width: 850px;
-    box-shadow: 0 4px 8px rgba(0, 200, 100, 0.15);
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 200, 120, 0.2);
 }
 
-/* ===== Titles ===== */
+/* TITLES */
 .footer-students h4,
 .footer-instructor h4 {
     margin-top: 0;
-    font-size: 18px;
-    color: #2b6f3e;
-    font-weight: bold;
+    color: #2b6f3e !important;
 }
 
-/* ===== Texts ===== */
-.footer-students p,
-.footer-instructor p {
-    font-size: 15px;
-    margin: 6px 0;
-}
-
-/* ===== Links ===== */
-.footer-instructor a {
-    font-size: 15px;
-    color: #007bff;
-    text-decoration: none;
-}
-
-.footer-instructor a:hover {
-    text-decoration: underline;
-}
-
-/* ===== Footer Copy ===== */
+/* COPY TEXT */
 .footer-copy {
     text-align: center;
-    color: #666;
-    font-size: 13px;
+    color: #555 !important;
+    font-size: 14px;
     margin-top: 10px;
 }
