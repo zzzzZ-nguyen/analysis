@@ -10,10 +10,7 @@ from utils_ui import (
     save_history,
     load_custom_css
 )
-
 from models import load_english_model, is_vietnamese, vietnamese_sentiment
-
-
 def show():
     # Load custom CSS
     load_custom_css()
