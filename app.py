@@ -119,12 +119,10 @@ elif page == "⚙️ Training Info":
     from pages.Training_Info import show
     show()
 
-
 # ======================================================
 # 🦶 PREMIUM FOOTER – RESPONSIVE 2-COLUMN
 # ======================================================
 st.markdown("<br><div class='divider'></div>", unsafe_allow_html=True)
-
 footer_html = """
 <div class="footer-card pro-shadow">
 <div class="footer-grid">
@@ -141,8 +139,7 @@ footer_html = """
             </a>
         </div>
     </div>
-
-    <div class="footer-copy">
+<div class="footer-copy">
         © 2025 — Sentiment Analysis for E-Commerce. All rights reserved.
     </div>
 
