@@ -1,72 +1,71 @@
-/* Global background */
-html, body, .stApp {
-    background: linear-gradient(135deg, #eef5ff, #ffffff) !important;
+/* ===== GLOBAL BACKGROUND ===== */
+body {
+    background: linear-gradient(180deg, #eef2ff, #fafbff);
 }
 
-/* Main container */
-.block-container {
-    background: transparent !important;
-    padding-top: 1rem !important;
-}
-
-/* Header card */
+/* ===== HEADER CARD ===== */
 .header-card {
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
     display: flex;
-    gap: 15px;
+    gap: 18px;
     align-items: center;
-    background: #ffffff;
-    padding: 20px 28px;
-    border-radius: 20px;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
     margin-bottom: 20px;
 }
 
-.header-title {
-    font-size: 30px;
-    font-weight: 700;
-    margin: 0;
-    color: #1b4b72;
+.header-icon {
+    font-size: 42px;
 }
 
-/* Divider */
+.header-title {
+    margin: 0;
+    font-size: 32px;
+    color: #2b2b52;
+}
+
+.header-sub {
+    margin: 0;
+    font-size: 16px;
+    color: #555;
+    opacity: 0.8;
+}
+
+/* ===== DIVIDER ===== */
 .divider {
     height: 1px;
-    background: #dcdcdc;
-    margin: 20px 0;
+    background: rgba(0,0,0,0.1);
+    margin: 25px 0;
 }
 
-/* Sidebar */
-section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #dbe7ff, #eaf1ff) !important;
-    padding: 20px;
-}
-
+/* ===== SIDEBAR TITLE ===== */
 .sidebar-title {
     font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 10px;
+    font-weight: 600;
+    padding: 10px 0;
+    background: -webkit-linear-gradient(45deg, #6c63ff, #9d4edd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* Footer card */
-.footer-students,
-.footer-instructor {
+/* ===== FOOTER ===== */
+.footer-card {
+    background: white;
+    border-radius: 15px;
     padding: 20px;
-    border-radius: 16px;
-    margin: 20px auto;
-    max-width: 900px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-top: 20px;
 }
 
-.footer-students {
-    background: linear-gradient(135deg, #fff3cd, #ffe899);
-}
-
-.footer-instructor {
-    background: linear-gradient(135deg, #d8ffe6, #b0ffd4);
+.footer-section h4 {
+    margin-bottom: 8px;
+    color: #6c63ff;
 }
 
 .footer-copy {
     text-align: center;
-    margin-top: 10px;
-    color: #444;
+    font-size: 14px;
+    margin-top: 12px;
+    opacity: 0.7;
 }
