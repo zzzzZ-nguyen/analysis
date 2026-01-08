@@ -1,50 +1,87 @@
-/* GENERAL APP BACKGROUND */
+/* ===========================
+   GLOBAL BACKGROUND
+   =========================== */
 .stApp {
-    background: linear-gradient(145deg, #f0f4f8, #ffffff);
+    background: linear-gradient(135deg, #e9f2ff, #ffffff);
 }
 
-/* CENTER CONTAINER */
+/* Main content container */
 .block-container {
+    padding-top: 1rem;
     background: transparent !important;
 }
 
 /* ===========================
-   FOOTER STUDENTS CARD
+   HEADER CARD
    =========================== */
-.footer-students {
-    background: linear-gradient(135deg, #fff3cd, #ffec9e) !important;
-    border: 1px solid #ffdf7f !important;
-    padding: 20px;
-    border-radius: 14px;
-    max-width: 850px;
-    margin: 20px auto;
-    box-shadow: 0 4px 10px rgba(255, 200, 0, 0.25);
+.header-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #ffffff;
+    padding: 18px 25px;
+    border-radius: 18px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+}
+
+.header-icon {
+    font-size: 40px;
+}
+
+.header-title {
+    color: #1b4b72;
+    margin-bottom: 4px;
+}
+
+.header-sub {
+    color: #666;
+    margin-top: -5px;
+}
+
+/* Divider */
+.divider {
+    height: 1px;
+    margin: 15px 0;
+    background: #ddd;
 }
 
 /* ===========================
-   FOOTER INSTRUCTOR CARD
+   SIDEBAR STYLE
    =========================== */
-.footer-instructor {
-    background: linear-gradient(135deg, #e6ffee, #c6ffe2) !important;
-    border: 1px solid #7ee2a4 !important;
-    padding: 20px;
+
+section[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #cbdcff, #e8f0ff);
+}
+
+.sidebar-title {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* ===========================
+   FOOTERS
+   =========================== */
+.footer-students {
+    background: linear-gradient(135deg, #fff3cd, #ffeb9c);
+    padding: 18px;
     border-radius: 14px;
-    max-width: 850px;
-    margin: 20px auto;
-    box-shadow: 0 4px 10px rgba(0, 200, 120, 0.2);
+    max-width: 860px;
+    margin: 0 auto 15px auto;
+    box-shadow: 0 4px 12px rgba(255,200,0,0.25);
 }
 
-/* TITLES */
-.footer-students h4,
-.footer-instructor h4 {
-    margin-top: 0;
-    color: #2b6f3e !important;
+.footer-instructor {
+    background: linear-gradient(135deg, #d8ffe6, #afffd3);
+    padding: 18px;
+    border-radius: 14px;
+    max-width: 860px;
+    margin: 0 auto 15px auto;
+    box-shadow: 0 4px 12px rgba(0,190,120,0.25);
 }
 
-/* COPY TEXT */
 .footer-copy {
     text-align: center;
-    color: #555 !important;
-    font-size: 14px;
-    margin-top: 10px;
+    padding: 5px;
+    color: #444;
 }
