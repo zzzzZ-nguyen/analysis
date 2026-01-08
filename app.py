@@ -74,8 +74,13 @@ elif page == "⚙️ Training Info":
     show()
 
 # ==========================
-# 👣 FIXED FOOTER – MATERIAL DESIGN
+# 👣 FIXED FOOTER
 # ==========================
+
+# 🚀 RESET markdown state để tránh bị dính code-block
+st.markdown("<div></div>", unsafe_allow_html=True)
+st.write("")  # thêm 1 dòng trắng cho chắc chắn
+
 st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
 
 footer_html = """
