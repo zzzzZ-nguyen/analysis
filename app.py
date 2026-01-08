@@ -78,7 +78,7 @@ st.markdown("""
 <div class="footer-card">
     <h4>🎓 Students</h4>
     <p>Bùi Đức Nguyên – 235053154 – nguyenbd23@uef.edu.vn</p>
-    <p>Huỳnh Ngọc Minh Quân – 235052863 – quanhnm@uef.edu.vn</p>
+    <p>Huỳnh Ngọc Minh Quan – 235052863 – quanhnm@uef.edu.vn</p>
 </div>
 
 <div class="footer-card">
