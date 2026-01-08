@@ -106,15 +106,12 @@ with st.sidebar:
 if page == "🏠 Home":
     from pages.Home import show
     show()
-
 elif page == "📈 Sentiment Analysis":
     from pages.Analysis import show
     show()
-
 elif page == "📊 Dataset Explorer":
     from pages.Dataset_Explorer import show  # optional page
     show()
-
 elif page == "⚙️ Training Info":
     from pages.Training_Info import show
     show()
