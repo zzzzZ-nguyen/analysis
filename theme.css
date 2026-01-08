@@ -49,23 +49,26 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
-/* ===== FOOTER ===== */
 .footer-card {
     background: white;
-    border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    margin-top: 20px;
+    border-radius: 15px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    margin-top: 30px;
+}
+
+.footer-section {
+    margin-bottom: 10px;
 }
 
 .footer-section h4 {
-    margin-bottom: 8px;
     color: #6c63ff;
+    margin-bottom: 5px;
 }
 
 .footer-copy {
     text-align: center;
     font-size: 14px;
-    margin-top: 12px;
     opacity: 0.7;
+    margin-top: 10px;
 }
