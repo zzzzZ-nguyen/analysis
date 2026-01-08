@@ -1,97 +1,102 @@
+import streamlit as st
+from pathlib import Path
+
 # ==========================
-# 🌟 BEAUTIFUL FOOTER (NEW DESIGN)
+# ⚙️ PAGE CONFIG
 # ==========================
-st.write("---")
+st.set_page_config(
+    page_title="Sentiment Analysis – Material UI Edition",
+    page_icon="🧠",
+    layout="wide"
+)
 
-footer_html = """
-<style>
-.footer-container {
-    max-width: 900px;
-    margin: 25px auto;
-    font-family: 'Segoe UI', sans-serif;
-}
+# ==========================
+# 🎨 GLOBAL CSS (theme.css)
+# ==========================
+css_path = Path("theme.css")
+if css_path.exists():
+    st.markdown(f"<style>{css_path.read_text()}</style>", unsafe_allow_html=True)
 
-/* Card style */
-.footer-card {
-    background: white;
-    border-radius: 12px;
-    padding: 20px 25px;
-    border: 1px solid #e5e5e5;
-    box-shadow: 0 3px 15px rgba(0,0,0,0.06);
-    margin-bottom: 15px;
-}
-
-/* Yellow student box */
-.student-box {
-    background: #fff7c2;
-    border: 1px solid #f0d878;
-}
-
-/* Title styling */
-.footer-title {
-    font-size: 17px;
-    font-weight: bold;
-    color: #2b6f3e;
-    margin-bottom: 10px;
-}
-
-/* List inside boxes */
-.footer-list {
-    margin: 0;
-    padding-left: 18px;
-    line-height: 1.7;
-    font-size: 15px;
-}
-
-/* Instructor section */
-.instructor-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-/* Copyright */
-.footer-copy {
-    text-align: center;
-    margin-top: 12px;
-    font-size: 13px;
-    color: #777;
-}
-</style>
-
-<div class="footer-container">
-
-    <!-- STUDENTS -->
-    <div class="footer-card student-box">
-        <div class="footer-title">👨‍🎓 Students</div>
-        <ul class="footer-list">
-            <li>Bùi Đức Nguyên – 235053154 – nguyenbd23@uef.edu.vn</li>
-            <li>Huỳnh Ngọc Minh Quân – 235052863 – quanhnm@uef.edu.vn</li>
-        </ul>
-    </div>
-
-    <!-- INSTRUCTOR -->
-    <div class="footer-card">
-        <div class="footer-title">👨‍🏫 Instructor</div>
-        <div class="instructor-row">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg"
-                 width="28">
-            <div>
-                <b>TS. Bùi Tiến Đức</b><br>
-                <a href="https://orcid.org/0000-0001-5174-3558"
-                   target="_blank"
-                   style="color:#1a73e8; text-decoration:none;">
-                   ORCID: 0000-0001-5174-3558
-                </a>
-            </div>
+# ==========================
+# 🎨 HEADER (Material Card)
+# ==========================
+st.markdown(
+    """
+    <div class="header-card">
+        <div class="header-icon">🧠</div>
+        <div>
+            <h2 class="header-title">Sentiment Analysis for Product Reviews</h2>
+            <p class="header-sub">Modern UI • Streamlit • Machine Learning</p>
         </div>
     </div>
+    """,
+    unsafe_allow_html=True,
+)
 
-    <div class="footer-copy">
-        © 2025 – Topic 5: Sentiment Analysis for E-Commerce<br>
-        Developed with ❤️ using Python & Streamlit
+st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
+
+# ==========================
+# 📌 SIDEBAR – Gradient + Icon
+# ==========================
+st.sidebar.markdown(
+    """
+    <div class="sidebar-title">📊 Navigation</div>
+    """,
+    unsafe_allow_html=True
+)
+
+page = st.sidebar.radio(
+    "",
+    [
+        "🏠 Home",
+        "📈 Sentiment Analysis",
+        "⚙️ Training Info"
+    ]
+)
+
+# ==========================
+# 📦 ROUTING
+# ==========================
+if page == "🏠 Home":
+    from pages.Home import show
+    show()
+
+elif page == "📈 Sentiment Analysis":
+    from pages.Analysis import show
+    show()
+
+elif page == "⚙️ Training Info":
+    from pages.Training_Info import show
+    show()
+
+# ==========================
+# 👣 FOOTER – Premium Material UI
+# ==========================
+st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
+
+st.markdown(
+    """
+    <div class="footer-container">
+
+        <div class="footer-card">
+            <h4>👨‍🎓 Students</h4>
+            <p>Bùi Đức Nguyên – 235053154 – nguyenbd23@uef.edu.vn</p>
+            <p>Huỳnh Ngọc Minh Quân – 235052863 – quanhnm@uef.edu.vn</p>
+        </div>
+
+        <div class="footer-card">
+            <h4>👨‍🏫 Instructor</h4>
+            <p><b>Bùi Tiến Đức</b></p>
+            <a href="https://orcid.org/0000-0001-5174-3558" target="_blank">
+                ORCID: 0000-0001-5174-3558
+            </a>
+        </div>
+
     </div>
-</div>
-"""
 
-st.markdown(footer_html, unsafe_allow_html=True)
+    <div class="copyright">
+        © 2025 – Sentiment Analysis for E-Commerce (Material UI Edition)
+    </div>
+    """,
+    unsafe_allow_html=True
+)
