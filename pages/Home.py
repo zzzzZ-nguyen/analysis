@@ -53,36 +53,37 @@ def card(html):
 #            PAGE
 # ============================
 def show():
-    # Title
-    st.markdown("<h2 class='page-title'>Topic 5 – Sentiment Analysis for Product Reviews</h2>", unsafe_allow_html=True)
+    
+    st.markdown("<h2 class='page-title'>Topic 5 – Sentiment Analysis for Product Reviews</h2>",
+                unsafe_allow_html=True)
 
     # CARD 1
     card("""
-    <h4>📌 1. Problem Overview</h4>
-    The project develops an intelligent sentiment analysis system that automatically
-    classifies product reviews into <b>Positive, Neutral, or Negative</b>
-    to support decision-making for e-commerce businesses.
-    """)
+<h4>📌 1. Problem Overview</h4>
+The project develops an intelligent sentiment analysis system that automatically
+classifies product reviews into <b>Positive, Neutral, or Negative</b> to support
+decision-making for e-commerce businesses.
+""")
 
     # CARD 2
     card("""
-    <h4>🎯 2. Objectives</h4>
-    <ul>
-        <li>Analyze customer opinions from product reviews.</li>
-        <li>Support Vietnamese and English text.</li>
-        <li>Visualize sentiment distribution.</li>
-        <li>Provide real-time sentiment prediction.</li>
-    </ul>
-    """)
+<h4>🎯 2. Objectives</h4>
+<ul>
+    <li>Analyze customer opinions from product reviews.</li>
+    <li>Support Vietnamese and English text.</li>
+    <li>Visualize sentiment distribution.</li>
+    <li>Provide real-time sentiment prediction.</li>
+</ul>
+""")
 
     # CARD 3
     card("""
-    <h4>🛠️ 3. Technologies</h4>
-    <ul>
-        <li>Python, Streamlit</li>
-        <li>Scikit-learn, TF-IDF</li>
-        <li>Logistic Regression, SVM, XGBoost (optional)</li>
-    </ul>
-    """)
+<h4>🛠️ 3. Technologies</h4>
+<ul>
+    <li>Python, Streamlit</li>
+    <li>Scikit-learn, TF-IDF</li>
+    <li>Logistic Regression, SVM, XGBoost (optional)</li>
+</ul>
+""")
 
     st.write("---")
