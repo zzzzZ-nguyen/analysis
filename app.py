@@ -127,16 +127,13 @@ st.markdown("<br><div class='divider'></div>", unsafe_allow_html=True)
 
 footer_html = """
 <div class="footer-card pro-shadow">
-
-    <div class="footer-grid">
-
-        <div class="footer-section">
+<div class="footer-grid">
+<div class="footer-section">
             <h4>🎓 Students</h4>
             <p>• <b>Bùi Đức Nguyên</b> – 235053154 – nguyenbd23@uef.edu.vn</p>
             <p>• <b>Huỳnh Ngọc Minh Quân</b> – 235052863 – quanhnm@uef.edu.vn</p>
         </div>
-
-        <div class="footer-section">
+<div class="footer-section">
             <h4>👨‍🏫 Instructor</h4>
             <p><b>Bùi Tiến Đức</b></p>
             <a href="https://orcid.org/0000-0001-5174-3558" target="_blank">
