@@ -75,20 +75,18 @@ elif page == "⚙️ Training Info":
 st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
 
 st.markdown("""
-<div class="footer-card">
+<div class="footer-students">
     <h4>🎓 Students</h4>
     <p>Bùi Đức Nguyên – 235053154 – nguyenbd23@uef.edu.vn</p>
-    <p>Huỳnh Ngọc Minh Quan – 235052863 – quanhnm@uef.edu.vn</p>
+    <p>Huỳnh Ngọc Minh Quân – 235052863 – quanhnm@uef.edu.vn</p>
 </div>
 
-<div class="footer-card">
+<div class="footer-instructor">
     <h4>👨‍🏫 Instructor</h4>
     <p><b>Bùi Tiến Đức</b></p>
-    <p>
-        <a href="https://orcid.org/0000-0001-5174-3558" target="_blank">
-            ORCID: 0000-0001-5174-3558
-        </a>
-    </p>
+    <a href="https://orcid.org/0000-0001-5174-3558" target="_blank">
+        ORCID: 0000-0001-5174-3558
+    </a>
 </div>
 
 <div class="footer-copy">
