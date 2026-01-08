@@ -4,33 +4,72 @@ import numpy as np
 import joblib
 import os
 
-# ==================================================
-# 📦 LOAD MODEL OBJECTS
-# ==================================================
+# ============================
+# CUSTOM CSS
+# ============================
+CSS = """
+<style>
+.page-title {
+    font-size: 32px !important;
+    font-weight: 800;
+    color: #2b6f3e;
+    background: linear-gradient(90deg, #2b6f3e, #3fa55b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 30px;
+}
+
+.section-title {
+    font-size: 22px !important;
+    font-weight: 700;
+    color: #d12c2c;
+    margin-top: 25px;
+}
+
+.card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 14px;
+    margin-top: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    border-left: 6px solid #ffcc00;
+    transition: 0.25s;
+}
+.card:hover {
+    box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+    transform: translateY(-3px);
+}
+
+.caption {
+    font-size: 14px;
+    color: #555;
+    margin-top: 6px;
+}
+</style>
+"""
+st.markdown(CSS, unsafe_allow_html=True)
+
+
+
+# ============================
+# LOAD MODEL
+# ============================
 @st.cache_resource
 def load_model_objects():
-    model_path = os.path.join("models", "model_en.pkl")
-    vectorizer_path = os.path.join("models", "vectorizer_en.pkl")
-
-    model = joblib.load(model_path)
-    vectorizer = joblib.load(vectorizer_path)
-
+    model = joblib.load("models/model_en.pkl")
+    vectorizer = joblib.load("models/vectorizer_en.pkl")
     return model, vectorizer
 
 
-# ==================================================
-# 📊 TRAINING INFO – SENTIMENT ANALYSIS
-# ==================================================
+
+# ============================
+# MAIN PAGE
+# ============================
 def show():
 
-    st.markdown(
-        "<h3 style='color:#2b6f3e;'>Training Info – Sentiment Analysis</h3>",
-        unsafe_allow_html=True
-    )
-
+    st.markdown("<h2 class='page-title'>Training Info – Sentiment Analysis</h2>", unsafe_allow_html=True)
     st.write(
-        "This section presents the training pipeline, model information, "
-        "evaluation results, and comparison of sentiment analysis models."
+        "This page summarizes the full machine learning pipeline including dataset, preprocessing, model parameters, and training results."
     )
 
     st.write("---")
@@ -38,7 +77,7 @@ def show():
     # ==================================================
     # 1️⃣ RAW DATASET
     # ==================================================
-    st.subheader("1️⃣ Raw Dataset")
+    st.markdown("<div class='section-title'>1️⃣ Raw Dataset</div>", unsafe_allow_html=True)
 
     raw_data = pd.DataFrame({
         "review": [
@@ -51,30 +90,29 @@ def show():
         "label": ["positive", "negative", "positive", "negative", "neutral"]
     })
 
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.dataframe(raw_data)
+    st.markdown("</div>", unsafe_allow_html=True)
 
-    st.caption(
-        "• Dataset gồm các đánh giá sản phẩm (Vietnamese & English)\n"
-        "• Nhãn cảm xúc: positive / neutral / negative"
-    )
+    st.markdown("<div class='caption'>• Dataset gồm đánh giá sản phẩm (Vietnamese + English)<br>• Nhãn: positive / neutral / negative</div>", unsafe_allow_html=True)
 
     st.write("---")
 
     # ==================================================
     # 2️⃣ PREPROCESSING
     # ==================================================
-    st.subheader("2️⃣ Preprocessed Data")
+    st.markdown("<div class='section-title'>2️⃣ Preprocessed Data</div>", unsafe_allow_html=True)
 
     processed_data = raw_data.copy()
     processed_data["review_clean"] = processed_data["review"].str.lower()
 
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.dataframe(processed_data)
+    st.markdown("</div>", unsafe_allow_html=True)
 
-    st.caption(
-        "Tiền xử lý bao gồm:\n"
-        "- Chuyển chữ thường\n"
-        "- Loại bỏ ký tự đặc biệt\n"
-        "- Chuẩn hóa văn bản cho TF-IDF"
+    st.markdown(
+        "<div class='caption'>Tiền xử lý gồm:<br>- Lowercase<br>- Loại bỏ ký tự đặc biệt<br>- Chuẩn hóa văn bản</div>",
+        unsafe_allow_html=True
     )
 
     st.write("---")
@@ -82,62 +120,53 @@ def show():
     # ==================================================
     # 3️⃣ MODEL INFORMATION
     # ==================================================
-    st.subheader("3️⃣ Model Information")
+    st.markdown("<div class='section-title'>3️⃣ Model Information</div>", unsafe_allow_html=True)
 
-    st.markdown(
-        """
-        **Model Architecture:**
-        - English: TF-IDF + Logistic Regression  
-        - Vietnamese: Rule-based Sentiment Dictionary  
+    st.markdown("""
+    <div class='card'>
+        <b>Model Architecture:</b><br>
+        • English: TF-IDF + Logistic Regression<br>
+        • Vietnamese: Rule-based Dictionary<br><br>
 
-        **Libraries Used:**
-        - scikit-learn  
-        - pandas, numpy  
-        - Streamlit  
-
-        **Reason for Selection:**
-        - Nhẹ, dễ triển khai trên Streamlit Cloud  
-        - Phù hợp cho bài toán demo & học thuật  
-        """
-    )
+        <b>Reasons for selection:</b><br>
+        ✔ Nhẹ – chạy tốt trên Streamlit Cloud<br>
+        ✔ Dễ triển khai & giải thích<br>
+        ✔ Phù hợp project học thuật
+    </div>
+    """, unsafe_allow_html=True)
 
     st.write("---")
 
     # ==================================================
-    # 3️⃣.1 MODEL OBJECT DETAILS (FROM PKL)
+    # 3️⃣.1 MODEL OBJECT DETAILS
     # ==================================================
-    st.subheader("Loaded Model Object Details")
+    st.markdown("<div class='section-title'>📌 Loaded Model Object Details</div>", unsafe_allow_html=True)
 
     try:
         model, vectorizer = load_model_objects()
 
         model_info = {
             "Model Type": type(model).__name__,
-            "Number of Classes": len(model.classes_),
             "Classes": ", ".join(model.classes_),
-            "Solver": model.solver,
+            "Num Classes": len(model.classes_),
             "Max Iterations": model.max_iter,
-            "Regularization (C)": model.C
+            "Solver": model.solver,
+            "C (Regularization)": model.C
         }
 
         vectorizer_info = {
-            "Vectorizer Type": type(vectorizer).__name__,
+            "Vectorizer": type(vectorizer).__name__,
             "Vocabulary Size": len(vectorizer.vocabulary_),
             "N-gram Range": str(vectorizer.ngram_range),
             "Stop Words": "English"
         }
 
-        st.markdown("### 📌 Logistic Regression Model")
-        st.table(pd.DataFrame(
-            model_info.items(),
-            columns=["Property", "Value"]
-        ))
-
-        st.markdown("### 📌 TF-IDF Vectorizer")
-        st.table(pd.DataFrame(
-            vectorizer_info.items(),
-            columns=["Property", "Value"]
-        ))
+        st.markdown("<div class='card'>", unsafe_allow_html=True)
+        st.markdown("### Logistic Regression Model")
+        st.table(pd.DataFrame(model_info.items(), columns=["Property", "Value"]))
+        st.markdown("### TF-IDF Vectorizer")
+        st.table(pd.DataFrame(vectorizer_info.items(), columns=["Property", "Value"]))
+        st.markdown("</div>", unsafe_allow_html=True)
 
     except Exception as e:
         st.error("❌ Cannot load model objects")
@@ -148,95 +177,86 @@ def show():
     # ==================================================
     # 4️⃣ TRAINING PARAMETERS
     # ==================================================
-    st.subheader("4️⃣ Training Parameters")
+    st.markdown("<div class='section-title'>4️⃣ Training Parameters</div>", unsafe_allow_html=True)
 
     params = pd.DataFrame({
-        "Parameter": [
-            "Vectorizer",
-            "Classifier",
-            "Max Iterations",
-            "Stop Words",
-            "Language Support"
-        ],
-        "Value": [
-            "TF-IDF",
-            "Logistic Regression",
-            "100",
-            "English stopwords",
-            "Vietnamese & English"
-        ]
+        "Parameter": ["Vectorizer", "Classifier", "Max Iterations", "Language Support"],
+        "Value": ["TF-IDF", "Logistic Regression", "100", "Vietnamese + English"]
     })
 
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.table(params)
+    st.markdown("</div>", unsafe_allow_html=True)
 
     st.write("---")
 
     # ==================================================
     # 5️⃣ TRAINING RESULTS
     # ==================================================
-    st.subheader("5️⃣ Training Results")
+    st.markdown("<div class='section-title'>5️⃣ Training Results</div>", unsafe_allow_html=True)
 
     results = pd.DataFrame({
         "Metric": ["Accuracy", "Precision", "Recall", "F1-score"],
         "Score": [0.86, 0.84, 0.83, 0.84]
     })
 
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.table(results)
+    st.markdown("</div>", unsafe_allow_html=True)
 
-    st.caption("Kết quả đánh giá trên tập validation (demo dataset).")
+    st.markdown("<div class='caption'>Kết quả đánh giá trên tập validation demo.</div>", unsafe_allow_html=True)
 
     st.write("---")
 
     # ==================================================
-    # 6️⃣ MODEL CONFIDENCE
+    # 6️⃣ CONFIDENCE EVALUATION
     # ==================================================
-    st.subheader("6️⃣ Model Confidence Evaluation")
+    st.markdown("<div class='section-title'>6️⃣ Model Confidence Evaluation</div>", unsafe_allow_html=True)
 
     confidence_df = pd.DataFrame({
         "Review": ["Sản phẩm tốt", "Bad product"],
-        "Predicted Sentiment": ["positive", "negative"],
+        "Prediction": ["positive", "negative"],
         "Confidence": [0.78, 0.82]
     })
 
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.dataframe(confidence_df)
+    st.markdown("</div>", unsafe_allow_html=True)
 
     st.write("---")
 
     # ==================================================
     # 7️⃣ MODEL COMPARISON
     # ==================================================
-    st.subheader("7️⃣ Model Comparison")
+    st.markdown("<div class='section-title'>7️⃣ Model Comparison</div>", unsafe_allow_html=True)
 
     compare_df = pd.DataFrame({
-        "Model": [
-            "Logistic Regression (TF-IDF)",
-            "Naive Bayes",
-            "Rule-based (Vietnamese)"
-        ],
+        "Model": ["Logistic Regression", "Naive Bayes", "VN Rule-based"],
         "Accuracy": [0.86, 0.82, 0.80],
         "Deployment Cost": ["Low", "Low", "Very Low"],
         "Explainability": ["High", "Medium", "High"]
     })
 
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.dataframe(compare_df)
+    st.markdown("</div>", unsafe_allow_html=True)
 
     st.write("---")
 
     # ==================================================
     # 8️⃣ CONCLUSION
     # ==================================================
-    st.subheader("8️⃣ Conclusion & Future Work")
+    st.markdown("<div class='section-title'>8️⃣ Conclusion & Future Work</div>", unsafe_allow_html=True)
 
-    st.markdown(
-        """
-        **Conclusion:**
-        - Model được load trực tiếp từ file `.pkl`
-        - Không train lại khi chạy Streamlit
-        - Đúng chuẩn Machine Learning pipeline
+    st.markdown("""
+    <div class='card'>
+        <b>Conclusion:</b><br>
+        • Model load từ file `.pkl`, không train lại khi chạy<br>
+        • Pipeline chuẩn ML: preprocess → vectorize → train → evaluate<br><br>
 
-        **Future Work:**
-        - Mở rộng dataset
-        - Áp dụng Transformer (BERT, PhoBERT)
-        - Aspect-based Sentiment Analysis
-        """
-    )
+        <b>Future Work:</b><br>
+        • Mở rộng dataset<br>
+        • Áp dụng Transformer (BERT, PhoBERT)<br>
+        • Aspect-based Sentiment Analysis
+    </div>
+    """, unsafe_allow_html=True)
