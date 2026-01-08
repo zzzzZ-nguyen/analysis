@@ -1,10 +1,8 @@
-python-docx
-streamlit
 pandas
-scikit-learn
-python-docx
 matplotlib
-numpy
+fastapi
+uvicorn
+scikit-learn
+openpyxl
 joblib
-
-
+pydantic
