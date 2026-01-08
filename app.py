@@ -73,34 +73,33 @@ elif page == "⚙️ Training Info":
     from pages.Training_Info import show
     show()
 
-# ======================================================
-# 👣 FOOTER – MATERIAL DESIGN
-# ======================================================
+# ==========================
+# 👣 FIXED FOOTER – MATERIAL DESIGN
+# ==========================
 st.markdown("<div class='divider'></div>", unsafe_allow_html=True)
 
-st.markdown(
-    """
-    <div class="footer-card">
+footer_html = """
+<div class="footer-card">
 
-        <div class="footer-section">
-            <h4>🎓 Students</h4>
-            <p>Bùi Đức Nguyên – 235053154 – nguyenbd23@uef.edu.vn</p>
-            <p>Huỳnh Ngọc Minh Quân – 235052863 – quanhnm@uef.edu.vn</p>
-        </div>
-
-        <div class="footer-section">
-            <h4>👨‍🏫 Instructor</h4>
-            <p><b>Bùi Tiến Đức</b></p>
-            <a href="https://orcid.org/0000-0001-5174-3558" target="_blank">
-                ORCID: 0000-0001-5174-3558
-            </a>
-        </div>
-
-        <div class="footer-copy">
-            © 2025 – Sentiment Analysis for E-Commerce
-        </div>
-
+    <div class="footer-section">
+        <h4>🎓 Students</h4>
+        <p>Bùi Đức Nguyên – 235053154 – nguyenbd23@uef.edu.vn</p>
+        <p>Huỳnh Ngọc Minh Quân – 235052863 – quanhnm@uef.edu.vn</p>
     </div>
-    """,
-    unsafe_allow_html=True
-)
+
+    <div class="footer-section">
+        <h4>👨‍🏫 Instructor</h4>
+        <p><b>Bùi Tiến Đức</b></p>
+        <a href="https://orcid.org/0000-0001-5174-3558" target="_blank">
+            ORCID: 0000-0001-5174-3558
+        </a>
+    </div>
+
+    <div class="footer-copy">
+        © 2025 – Sentiment Analysis for E-Commerce
+    </div>
+
+</div>
+"""
+
+st.markdown(footer_html, unsafe_allow_html=True)
