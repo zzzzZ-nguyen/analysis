@@ -4,4 +4,7 @@ pandas
 scikit-learn
 python-docx
 matplotlib
+numpy
+joblib
+
 
